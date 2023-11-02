@@ -20,6 +20,7 @@ change line 1273, from ```model.to(device)``` to ```model.to('cpu')```, It doesn
 Fortunately there's a [cyber cafe](https://maps.app.goo.gl/wpHhDhVvc8A6ESWa8 "cyber cafe") near my home provide computer which is windows system with Nvidia GPU RTX 4070🥳
 <img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/IMG_1296%20(1).jpg?raw=true" alt="RTX 4070" width="400"/>
 
+I followed this tutorial to install Stable Diffusion: (https://www.youtube.com/watch?v=onmqbI5XPH8 )
+Everything runs evry smooth and fast, but it didn't allowed me to install **xformer**, which is a library of components designed for the Transformer neural network architecture, due to **Access Denied**.
 
-
-
+So I decided to use RunPod where I can rent remote virtual machines with high-performance GPUs suitable for compute-intensive tasks such as machine learning and deep learning.
