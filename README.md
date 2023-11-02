@@ -17,5 +17,5 @@ Open the file: "/Users/hsun/Desktop/SDW/stable-diffusion-webui/venv/lib/python3.
 change line 1273, from ```model.to(device)``` to ```model.to('cpu')```, It doesn't work as well.
 
 ## Attempt 3
-Fortunately there's a cyber cafe near my home provide computer which is windows system with Nvidia GPU RTX 4070🥳
-[cyber cafe](https://maps.app.goo.gl/wpHhDhVvc8A6ESWa8 "cyber cafe")
+Fortunately there's a [cyber cafe](https://maps.app.goo.gl/wpHhDhVvc8A6ESWa8 "cyber cafe") near my home provide computer which is windows system with Nvidia GPU RTX 4070🥳
+
