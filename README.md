@@ -18,6 +18,8 @@ change line 1273, from ```model.to(device)``` to ```model.to('cpu')```, It doesn
 
 ## Attempt 3
 Fortunately there's a [cyber cafe](https://maps.app.goo.gl/wpHhDhVvc8A6ESWa8 "cyber cafe") near my home provide computer which is windows system with Nvidia GPU RTX 4070🥳
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/IMG_1296%20(1).jpg?raw=true" alt="RTX 4070" width="400"/>
+
 
 
 
