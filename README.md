@@ -73,7 +73,73 @@ LoRA model needs paired dataset which include images and corresponding textual p
 I collected species 's images from CC0 website such as [pixabay](https://pixabay.com/), [Pexels](https://www.pexels.com/), pasted them into a .psd file in Adobe Photoshop:
 <img src="" alt="RTX 4070" width="400"/>
 
-then use ChatGPT to help me write the code in Google Colab Notebook to help 
+then use ChatGPT to help me write the code in Google Colab Notebook to export images from .psd file:
+```
+!pip install psd-tools
+!pip install psd-tools Pillow
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+from PIL import Image
+import os
+from psd_tools import PSDImage
+
+# 讀取PSD檔案
+psd_path = '/content/drive/MyDrive/Thesis/fishchief_style.psd'
+psd = PSDImage.open(psd_path)
+
+# 確保輸出目錄存在
+output_dir = '/content/drive/MyDrive/Thesis/1102LoRA dataset'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+canvas_width, canvas_height = 512, 512
+
+# 導出每一個圖層
+for i, layer in enumerate(psd, start=1):
+    # 取得圖層的圖像
+    img = layer.topil()
+
+    # 若圖層為透明或沒有圖片，跳過此圖層
+    if img is None:
+        continue
+
+    # 如果圖層帶有透明度，則將透明部分填充為白色
+    if img.mode == 'RGBA':
+        # 創建一個白色背景
+        white_background = Image.new("RGBA", img.size, "WHITE")
+        # 組合圖層與白色背景
+        img = Image.alpha_composite(white_background, img)
+
+    # 轉換合成後的圖片為RGB
+    img_rgb = img.convert("RGB")
+
+    # 創建一個512x512的白色背景圖像
+    white_bg = Image.new("RGB", (canvas_width, canvas_height), "WHITE")
+
+    # 考慮圖層的位置，確保圖層保持在原來的位置
+    paste_position = (layer.left, layer.top)
+
+    # 粘貼圖層到背景上
+    white_bg.paste(img_rgb, paste_position)
+
+    # 設定輸出路徑
+    output_path = os.path.join(output_dir, f"{i}.jpg")
+
+    # 導出圖像
+    white_bg.save(output_path, 'JPEG')
+
+    # 創建對應的空白TXT檔案
+    txt_output_path = os.path.join(output_dir, f"{i}.txt")
+    with open(txt_output_path, 'w') as fp:
+        pass  # 'pass'意味著不做任何事情，留下一個空文件
+
+print(f"Layers exported to {output_dir}")
+```
+Then I followed [this tutorial](https://www.youtube.com/watch?v=oksoqMsVpaY&t=4s&ab_channel=Code%26bird) to train LoRA for secific species.
+I trained loads of LoRA and saved them in drive:
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/LoRA%20models%20in%20drive.png" alt="RTX 4070" width="800"/>
 
 ### Learned how to use img2img tag function
 img2img function in stable diffusion allow users to modify, enhance, or transform an existing image based on a given textual prompt. I used __inpainted__ function in this tag to re-generate whale's tail if its not correct.
