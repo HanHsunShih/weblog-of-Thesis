@@ -4,6 +4,7 @@ This is the weblog of my thesis, where I document my iterative development and p
 ## 2, Oct - 6, Oct
 ### Struggled with running ControlNet on Google Colab Notebook
 ControlNet requires high VRAM to run, so I upgraded to Colab Premium. I think maybe a dataset with 5k images and 5k prompt file is too big, I first wanted to make sure I can successfully run the notebook, so I decreased the dataset to 100 images with 100 corresponding textual prompts.
+
 <img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/2%2C%20Oct.png" alt="RTX 4070" width="800"/>
 
 I kept searching for proper methods meet my intension, found fine-tuning is better for people who only have small dataset.
