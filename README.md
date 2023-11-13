@@ -2,6 +2,16 @@
 This is the weblog of my thesis, where I document my iterative development and progress on a weekly basis
 
 ## 23, Oct - 27, Oct
+### Used RunPod to train model
+I watched this tutorial to learned how to install Stable Diffusion on RunPod: [Tutorial]( https://www.youtube.com/watch?v=a8WESfPwlYw&ab_channel=SECourses )
+Also trained a DreamBooth model. I first picked RTX 3090 as GPU to deploy tamplete, then changed to RTX 4090 since it's significantly quicker and more powerful than the RTX 3090.
+
+### used GPT4 to generated prompts
+This week, I also trained some LoRA models via the [Google Colab Notebook](https://colab.research.google.com/github/Linaqruf/kohya-trainer/blob/main/kohya-LoRA-dreambooth.ipynb) wtching this [tutorial](https://www.youtube.com/watch?v=oksoqMsVpaY&t=4s&ab_channel=Code%26bird).
+LoRA model needs paired dataset which include images and corresponding textual prompts. I used GPT4 to help me generated the prompt then pasted the prompts into .txt file.
+
+
+## 23, Oct - 27, Oct
 ### Switching to RunPod with Virtual GPU
 I have a MacBook Pro with an M2 Pro chip. Although I successfully installed Stable Diffusion locally, I encountered persistent issues while attempting to train the LoRA due to the lack of an Nvidia GPU:
 **error:raise AssertionError("Torch not compiled with CUDA enabled")AssertionError: Torch not compiled with CUDA enabled**
