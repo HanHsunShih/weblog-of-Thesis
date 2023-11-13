@@ -9,6 +9,8 @@ Also trained a DreamBooth model. I first picked RTX 3090 as GPU to deploy tample
 ### used GPT4 to generated prompts
 This week, I also trained some LoRA models via the [Google Colab Notebook](https://colab.research.google.com/github/Linaqruf/kohya-trainer/blob/main/kohya-LoRA-dreambooth.ipynb) wtching this [tutorial](https://www.youtube.com/watch?v=oksoqMsVpaY&t=4s&ab_channel=Code%26bird).
 LoRA model needs paired dataset which include images and corresponding textual prompts. I used GPT4 to help me generated the prompt then pasted the prompts into .txt file.
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/Screenshot%202023-11-13%20at%2014.23.11.png" alt="RTX 4070" width="400"/>
+
 
 
 ## 23, Oct - 27, Oct
