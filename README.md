@@ -1,21 +1,46 @@
 # weblog-of-Thesis
 This is the weblog of my thesis, where I document my iterative development and progress on a weekly basis
 
+## 2, Oct - 6, Oct
+### Struggled with running ControlNet on Google Colab Notebook
+ControlNet requires high VRAM to run, so I upgraded to Colab Premium. I think maybe a dataset with 5k images and 5k prompt file is too big, I first wanted to make sure I can successfully run the notebook, so I decreased the dataset to 100 images with 100 corresponding textual prompts.
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/2%2C%20Oct.png" alt="RTX 4070" width="800"/>
+
+I kept searching for proper methods meet my intension, found fine-tuning is better for people who only have small dataset.
+[Artical](https://new.qq.com/rain/a/20230403A020C800) I read introducing 4 ways to approach fine-tuning. I decided to try DreamBooth first.
 
 ## 9, Oct - 13, Oct
-### Collected dataset
-This week I collected images to build my dataset from my previous artwork. I created a .psd file in Adobe Photoshop with file size as 512*512 pixels.
-<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/FC%20dataset%20PS%20file.png" alt="RTX 4070" width="800"/>
 
+### Train DreamBooth of myself and Bobo my cat
+According to the research I did last week, I found [this tutorial](https://www.youtube.com/watch?v=kCcXrmVk1F0&t=505s&ab_channel=MattWolfe) to train DreamBooth via Google Colab Notebook, I practiced to train portrait fo myself and Bobo, my cat, first to check the quality of the result. I used 20 images as train images, the result looks quite nice!
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/inject%20Amy.png" alt="RTX 4070" width="800"/>
+
+### Collected dataset of my artworks
+After the successful portrait model, I started to  collected images to build my drawing dataset from my previous artwork from 2015. I created a .psd file in Adobe Photoshop with file size as 512*512 pixels.
+
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/FC%20dataset%20PS%20file.png" alt="RTX 4070" width="800"/>
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/73dataset.jpg" alt="RTX 4070" width="800"/>
+
+### Train DreamBooth which present my drawing style
+I first used a dataset which only included 10 images:
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/DreamBooth%20dataset%2010%20images.png" alt="RTX 4070" width="800"/>
+
+Here's the outcome:
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/first%20DB%20outcome.png" alt="RTX 4070" width="800"/>
+
+The outcome is very amazing! So I decided to dive into fine-tuning technoque.
 
 
 ### Installed Stable Diffusion Locally
+If I decided to use fine-tuning technique, I would need to use Stable Diffusion since this technique is base on this. I can run Stable Diffusion on Google Colab Notebook and install it locally, I think install it locally might be more stable, so I followed [this tutorial](https://hossie.notion.site/Stable-Diffusion-MacBook-M1-M2-dda94dc6d59943ea8bc4108897642637) to install Stable Diffusion locally using terminal:
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/install%20SD%20locally.png" alt="RTX 4070" width="800"/>
 
 
 ## 16, Oct - 20, Oct
-### Generate suitable prompts
-This week I tryed many ways to generate suitable prompts for the image, prompts paired dataset in order to train LoRA model.
-I first followed [this tutorial](https://www.youtube.com/watch?v=fH1jf8juA8Y&t=242s&ab_channel=%E9%97%B9%E9%97%B9%E4%B8%8D%E9%97%B9), I couldn't installed the tagger extension mentioned in the video, I recorded what did I try in my diary:
+### Train LoRA and generate suitable prompts
+Last week I tried DreamBooth and found the result is quite nice! So this week I tried another way to do fine-tuning -- LoRA. I didn't choose Texture Inversion and Hypernetworks beacuse they are old techniques in terms of fine-tuning.
+first I tryed many ways to generate suitable prompts for the image, prompts paired dataset in order to train LoRA model.
+I followed [this tutorial](https://www.youtube.com/watch?v=fH1jf8juA8Y&t=242s&ab_channel=%E9%97%B9%E9%97%B9%E4%B8%8D%E9%97%B9), I couldn't installed the tagger extension mentioned in the video, I recorded what did I try in my diary:
 <img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/tagger%20extension.png" alt="RTX 4070" width="800"/>
 
 Then I followed [this tutorial](https://www.youtube.com/watch?v=RgyOR5NiFMY&t=120s&ab_channel=%E6%8A%98%E9%A8%B0%E5%96%B5), tried 4 different ways using [Comparing image captioning models](https://huggingface.co/spaces/nielsr/comparing-captioning-models) online to generate prompts for this image:
