@@ -1,13 +1,64 @@
 # weblog-of-Thesis
 This is the weblog of my thesis, where I document my iterative development and progress on a weekly basis
 
+## July
+### Thesis reading 
+
+This month, I spent a lot of time researching a model for generating images in the FishChief drawing style (FishChief is my illustration brand, which I've been running since 2017 and have accumulated hundreds of illustrations). Initially, I found information on Image-to-Image techniques, which I was familiar with from my end-of-semester project that involved converting line drawings into FishChief style fish. My original idea was that a user could upload a photo, and the model would transform it into an image in the FishChief drawing style. This is the paper I initially referred to: https://phillipi.github.io/pix2pix/. In addition to more formal papers, I also looked at some interesting online works, like a Japanese website that transformed fried chicken into paintings in the style of Van Gogh or Cezanne. During this period, my focus was primarily on Image-to-Image as a starting point.
+
+Besides Conditional Adversarial Nets, I also looked into Cycle-Consistent Adversarial Networks, with the paper: https://junyanz.github.io/CycleGAN/. This also aligned with my initial concept of image style transformation.
+
+However, during a meeting with my teaching assistant, they mentioned that these were relatively older techniques and that there is a newer invention called the Diffusion Model. They suggested I look into it.
+
+After researching, I found that many popular image generation models, like DALL-E 2, Midjourney, Imagen, GLIDE, and Stable Diffusion, utilize this technology. Believing that it's crucial to stay up-to-date with the rapidly evolving field of machine learning, I decided to focus on the Diffusion Model. Since Stable Diffusion is open-source, offering a larger scope for customization and many extensions to suit personal preferences, I decided to make Stable Diffusion the main technology for my thesis.
+
+
+## August
+### Have rough methodology idea of the thesis -- ControlNet
+
+This month, I focused on researching the Diffusion model and stable diffusion. When I was doing research, I found a technique called ControlNet, which fine-tunes diffusion models using a relatively small dataset. Typically, diffusion models require hundreds of millions of images for training, but ControlNet only needs tens of thousands. Although this is still a very large number for most people, compared to hundreds of millions of images, tens of thousands are relatively more achievable.
+
+This is the GitHub link I referred to initially: https://github.com/lllyasviel/ControlNet/blob/main/README.md
+
+It showcases the various possibilities of ControlNet. Apart from what I'm most familiar with, transforming canny edges into images, it also includes transforming certain objects (the example given is shoes) into various styles, and the use of skeletons, allowing control over the actions of characters in the generated images.
+
+I plan to first try expanding my dataset using data augmentation, and then use it to train a version of the ControlNet fine-tuning method developed for FishChief.
+
+Also this month, I started considering text-to-image as the main theme for my thesis. Text-to-image uses textual descriptions to generate images that match those descriptions. I'm contemplating how this approach could help FishChief in the future, using such a model to generate images and products.
+
+## 4, Sep - 15, Sep
+### Follow the practice in Github
+In this GitHub repository about ControlNet (https://github.com/lllyasviel/ControlNet/blob/main/README.md), I found a section discussing how to train our own dataset (https://github.com/lllyasviel/ControlNet/blob/main/docs/train.md). Not only does it include a link to a Google Colab Notebook, but it also provides a dataset. I think this is an excellent exercise, so I decided to follow this section to see if I could achieve some results using the provided dataset.
+
+I've been trying to run this Google Colab Notebook for the past two weeks, but I keep encountering various problems. For example:
+```Source file does not exist: /content/drive/MyDrive/CCI/230817ControlNet/fill50k/source/source/0.png```
+It can't find certain image files, but when I check Google Drive, those files indeed exist;
+Or ```Failed to read images: /content/drive/MyDrive/CCI/230817ControlNet/fill50k/source/12246.png, /content/drive/MyDrive/CCI/230817ControlNet/fill50k/target/12246.png```
+It can't read certain images, but upon checking, they can be opened, the permissions are fine, and the path should be correct. Then, running the training cell again produces another error;
+```RuntimeError: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx```
+Even after installing the NVIDIA driver from http://www.nvidia.com/Download/index.aspx as instructed, the error still occurs.
+
+After trying for two full weeks, I only managed to successfully get results once. During this time, I planned to try to get this notebook running and prepare a large dataset suitable for ControlNet using augmentation, while also searching for simpler ways to achieve my goal of training a model with a small dataset.
+
+
+## 18, Sep - 29, Sep
+### Data augmentation
+In order to have more data to train ControlNet, I did data augmentation by rotating, flipping, and scaling to generate more images.
+I used this [Google Colab Notebook](https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/230919data_augmentation.ipynb) to do data augmentation
+
+In the begining I only have 158 images of marine creatures, after data augmentation, I have 158*4*6=3792 images.
+
+<img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/data%20augmentation%203972%20files.png" alt="RTX 4070" width="800"/>
+
+After completing the data augmentation, I intend to test the ControlNet with Canny Edge. My final project for the semester involves generating FishChief-style fish images using Canny Edge, a technique I'm more familiar with. That's why I want to start with ControlNet with Canny Edge as an introductory exercise. I modified the [code](https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/230919data_augmentation.ipynb) from last semester's assignment with the help of ChatGPT, enabling it to generate the Canny Edge for each fish image.
+
 ## 2, Oct - 6, Oct
 ### Struggled with running ControlNet on Google Colab Notebook
-ControlNet requires high VRAM to run, so I upgraded to Colab Premium. I think maybe a dataset with 5k images and 5k prompt file is too big, I first wanted to make sure I can successfully run the notebook, so I decreased the dataset to 100 images with 100 corresponding textual prompts.
+ControlNet requires high VRAM to run, so I upgraded to Colab Premium. I think maybe a dataset with 5k images and 5k prompt file is too big, I was still struggled with run the notebook successfully, so I decreased the dataset to 100 images with 100 corresponding textual prompts.
 
 <img src="https://github.com/HanHsunShih/weblog-of-Thesis/blob/main/images/2%2C%20Oct.png" alt="RTX 4070" width="800"/>
 
-I kept searching for proper methods meet my intension, found fine-tuning is better for people who only have small dataset.
+Meanwhile, I kept searching for other methods meet my intension, found fine-tuning is better for people who only have small dataset. (approximatelly 10-50 images)
 [Artical](https://new.qq.com/rain/a/20230403A020C800) I read introducing 4 ways to approach fine-tuning. I decided to try DreamBooth first.
 
 ## 9, Oct - 13, Oct
