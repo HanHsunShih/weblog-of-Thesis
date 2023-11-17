@@ -1,5 +1,6 @@
 # weblog-of-Thesis
 This is the weblog of my thesis, where I document my iterative development and progress on a weekly basis
+This link is the diary recorded what did I do these few months: https://docs.google.com/presentation/d/1mELL5kxBnKEzKGhDmNT8debhnjWjbuGuoc8C6C03lt8/edit?usp=sharing 
 
 ## July
 ### Research and thesis reading 
